@@ -21,3 +21,5 @@
      - Segregating List based on even-odd values
      
      - Reversing the List
+     
+- Written in C
