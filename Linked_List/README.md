@@ -1,7 +1,7 @@
 ## Linked_List: 
 
 - Performs Multiple functions in Linked List after Creating one.
-
+- Written in C
 - It has functions to perform:
      
      - Deleting Nodes
@@ -22,4 +22,4 @@
      
      - Reversing the List
      
-- Written in C
+
