@@ -293,6 +293,9 @@ public class Hash
         System.out.println("2. Search");
         System.out.println("3. Delete");
         System.out.println("4. Display");
+        System.out.println();
+        System.out.println("[Please be careful about the above choice]");
+        System.out.println("[Do not choose 2, 3 or 4 without any Insertion Operations Performed beforehand]");
         
         System.out.println();
 
