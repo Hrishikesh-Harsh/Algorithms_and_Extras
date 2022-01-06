@@ -1,6 +1,6 @@
 import java.util.*;
 import java.io.*;
-import java.nio.file.SecureDirectoryStream;
+//import java.nio.file.SecureDirectoryStream;
 
 //import javax.lang.model.util.ElementScanner6;
 public class Hash
@@ -52,7 +52,7 @@ public class Hash
         for(int i=0;i<n;i++)
         {
             int x=sc.nextInt();
-            int index=x%n;                      //Hash Indexing Function f(x)=x MOD (number of elements)
+            int index=x%n;                      //Hash Indexing Function f(x)=x MOD (size of array)
 
             if (chainTable[index] == null) {
                 chainTable[index] = new LinkedList<Integer>();
@@ -90,11 +90,11 @@ public class Hash
         {
             inc=1;
             int x=sc.nextInt();
-            index=x%n;                      //Hash Indexing Function f(x)=x MOD (number of elements)
+            index=x%size;                      //Hash Indexing Function f(x)=x MOD (size of array)
 
             while(linearProbeTable[index]!=-1)
             {
-                index=(index+inc)%n;        //If index is occupied, it looks for another index through Linear Probing
+                index=(index+inc)%size;        //If index is occupied, it looks for another index through Linear Probing
                 inc+=1;
             }
 
@@ -135,11 +135,11 @@ public class Hash
         {
             inc=1;
             int x=sc.nextInt();
-            index=x%n;                  //Hash Indexing Function f(x)=x MOD (number of elements)
+            index=x%size;                  //Hash Indexing Function f(x)=x MOD (size of array)
 
             while(quadraticProbeTable[index]!=-1)
             {
-                index=(index+inc*inc)%n;            //If index is occupied, it looks for another index through Quadratic Probing
+                index=(index+inc*inc)%size;            //If index is occupied, it looks for another index through Quadratic Probing
                 inc+=1;
             }
 
@@ -198,12 +198,10 @@ public class Hash
     public static void search(int x, int h[], int w)
     {
         System.out.println();
-        //int n=h.length;
+        int n=h.length;
         int index;
-        if(w==1)
-        index=x%elementsInLinearProbeTable;
-        else
-        index=x%elementsInQuadraticProbeTable;
+        
+        index=x%n;
 
         int initial_index=index; int c=1;
         int element=h[index];
@@ -216,9 +214,9 @@ public class Hash
             break;}
             
             if(w==1)
-            index=(index+inc)%elementsInLinearProbeTable;
+            index=(index+inc)%n;
             else
-            index=(index+inc*inc)%elementsInQuadraticProbeTable;
+            index=(index+inc*inc)%n;
             
             element=h[index];
 
@@ -241,28 +239,25 @@ public class Hash
     public static void delete(int x, int h[], int w)
     {
         System.out.println();
-        //int n=h.length;
+        int n=h.length;
         int index;
-        if(w==1)
-        index=x%elementsInLinearProbeTable;
-        else
-        index=x%elementsInQuadraticProbeTable;
+        
+        index=x%n;
 
         int initial_index=index;
         int element=h[index];
         int flag=0;
         int inc=1; int c=1;
-        while(element!=x && c!=2)       ////Until element is found or same index is repeated, keep looping
+        while(element!=x && c!=2)       //Until element is found or same index is repeated, keep looping
         {
             if(element==-1)
             {flag=1;
             break;}
             
             if(w==1)
-            index=(index+inc)%elementsInLinearProbeTable;
+            index=(index+inc)%n;
             else
-            index=(index+inc*inc)%elementsInQuadraticProbeTable;
-
+            index=(index+inc*inc)%n;
             element=h[index];
 
             if(index==initial_index)
