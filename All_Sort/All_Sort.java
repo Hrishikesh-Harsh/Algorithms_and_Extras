@@ -1,11 +1,117 @@
-import javax.lang.model.util.ElementScanner6;
-
 import java.util.*;
 
 public class All_Sort {
 
     static Scanner sc = new Scanner(System.in);
 
+    public static int[] pigeonHole_sort(int x[])
+    {
+        int max=x[0];
+        int min=x[0];
+        
+        for(int i=1;i<x.length;i++)
+        {
+            if(x[i]>max)
+            max=x[i];
+
+            if(x[i]<min)
+            min=x[i];
+        }
+
+        int range=max-min+1;
+        int newArray[]=new int[range];
+
+        Arrays.fill(newArray,-1);
+
+        for(int i=0;i<x.length;i++)
+        {
+            int index=x[i]-min;
+            newArray[index]=x[i];
+        }
+        int index=0;
+        for(int i=0;i<newArray.length;i++)
+        {
+            if(newArray[i]!=-1)
+            x[index++]=newArray[i];
+        }
+        return x;
+    }
+
+    public static int[] tim_sort(int x[])
+    {
+        if (x.length <= 1)
+            return x;
+
+        int mid = (x.length - 1) / 2;
+        int l[] = new int[mid + 1];
+        int li = 0;
+        int r[] = new int[x.length - mid - 1];
+        int ri = 0;
+
+        for (int i = 0; i < x.length; i++) { // partitioning the array into two parts
+            if (i < mid + 1) {
+                l[li++] = x[i];
+            } else if (i > mid) {
+                r[ri++] = x[i];
+            }
+        }
+
+        l=insertion_sort(l);        /*Perform Insertion Sort on the left and right sub-arrays*/
+        r=insertion_sort(r);
+
+        x=merge(l,r);               //Merge them back together
+
+        return x;
+    }
+    
+    public static int[] shell_sort(int x[])
+    {
+        int length=x.length;
+        int interval=length/2;          //Initial interval at which elements would be sorted
+        while(interval>0)
+        {
+            //System.out.println(Arrays.toString(x));
+            if(interval==1)             //If interval equals 1, then perform normal Insertion Sort
+            x=insertion_sort(x);
+            else
+            {
+                int end=interval;               //Keeps a track of the elements covered in the array in each pass
+            //int current=x[interval];
+            int index=end;                      //Goes back (interval) number of elements to check and compare
+            int flag=0;                         //Flag to see if end has changed
+            do{
+                flag=0;
+                if((index-interval)>=0)
+                {
+                    if(x[index]<x[index-interval])      //If the element present interval no. of elements back is larger, then exchange
+                    {
+                        int temp=x[index];
+                        x[index]=x[index-interval];
+                        x[index-interval]=temp;
+
+                        index=index-interval;
+                    }
+                    else
+                    {
+                        end++;
+                        flag=1;
+                    }
+                }
+                else
+                {
+                    end++;
+                    flag=1;
+                }
+                if(flag==1)
+                    index=end;
+
+                }while(end!=(length));
+            }
+            interval=interval/2;                    //Reduce interval after end pointer reaches end of array
+        }
+        return x;
+    }
+    
     public static int[] quick_sort(int x[]) {
         if (x.length <= 1)
             return x;
@@ -254,7 +360,9 @@ public class All_Sort {
         int n = sc.nextInt();
         System.out.println();
 
-        System.out.println("Enter the elements [non negative for radix sort, counting sort and bucket sort]");
+        System.out.println("Enter the elements\n"+
+            "[Non negative for Radix sort, Counting sort, Bucket sort, Pigeonhole sort]\n"+
+            "[Non Duplicate for Pigeohole Sort]");
         System.out.println("-----------------------------------");
 
         int a[] = new int[n];
@@ -269,11 +377,14 @@ public class All_Sort {
         System.out.println("1. Bubble Sort-> O(n^2)");
         System.out.println("2. Selection Sort-> O(n^2)");
         System.out.println("3. Insertion Sort-> O(n^2)");
-        System.out.println("4. Quick Sort-> O(n*logn)");
-        System.out.println("5. Merge Sort-> O(n*logn)");
+        System.out.println("4. Quick Sort-> O(n*log(n))");
+        System.out.println("5. Merge Sort-> O(n*log(n))");
         System.out.println("6. Radix Sort-> O(d*n)");
         System.out.println("7. Counting Sort-> O(n+k)");
         System.out.println("8. Bucket Sort-> O(n+k)");
+        System.out.println("9. Shell Sort-> O(n^2)");
+        System.out.println("10. Tim Sort-> O(n*log(n))");
+        System.out.println("11. Pigeonhole Sort-> O(N+n)");
         System.out.println();
 
         int ch = sc.nextInt();
@@ -393,6 +504,44 @@ public class All_Sort {
                 b = counting_sort(a);
                 finish = System.nanoTime();
                 System.out.println("Bucket Sort applied...!");
+                System.out.println();
+                for (int i = 0; i < b.length; i++) {
+                    System.out.println(b[i]);
+                }
+                break;
+
+            case 9:
+                System.out.println();
+                System.out.println("--------------------------------");
+                start = System.nanoTime();
+                b = shell_sort(a);
+                finish = System.nanoTime();
+                System.out.println("Shell Sort applied...!");
+                System.out.println();
+                for (int i = 0; i < b.length; i++) {
+                    System.out.println(b[i]);
+                }
+                break;
+            case 10:
+                System.out.println();
+                System.out.println("--------------------------------");
+                start = System.nanoTime();
+                b = tim_sort(a);
+                finish = System.nanoTime();
+                System.out.println("Tim Sort applied...!");
+                System.out.println();
+                for (int i = 0; i < b.length; i++) {
+                    System.out.println(b[i]);
+                }
+                break;
+
+            case 11:
+                System.out.println();
+                System.out.println("--------------------------------");
+                start = System.nanoTime();
+                b = pigeonHole_sort(a);
+                finish = System.nanoTime();
+                System.out.println("Pigeonhole Sort applied...!");
                 System.out.println();
                 for (int i = 0; i < b.length; i++) {
                     System.out.println(b[i]);
