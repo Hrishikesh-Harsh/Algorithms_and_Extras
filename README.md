@@ -7,5 +7,6 @@
   - Graph Search Using BFS and DFS
   - All Sort with various Sorting techniques
   - Percolation Problem Implementation
-  - Linked List with various Functions
+  - Linked List Implementation
   - Hash Table Implementation
+  - Stack Implementation
