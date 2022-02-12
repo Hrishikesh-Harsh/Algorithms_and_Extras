@@ -36,33 +36,6 @@ public class All_Sort {
         }
         return x;
     }
-
-    public static int[] tim_sort(int x[])
-    {
-        if (x.length <= 1)
-            return x;
-
-        int mid = (x.length - 1) / 2;
-        int l[] = new int[mid + 1];
-        int li = 0;
-        int r[] = new int[x.length - mid - 1];
-        int ri = 0;
-
-        for (int i = 0; i < x.length; i++) { // partitioning the array into two parts
-            if (i < mid + 1) {
-                l[li++] = x[i];
-            } else if (i > mid) {
-                r[ri++] = x[i];
-            }
-        }
-
-        l=insertion_sort(l);        /*Perform Insertion Sort on the left and right sub-arrays*/
-        r=insertion_sort(r);
-
-        x=merge(l,r);               //Merge them back together
-
-        return x;
-    }
     
     public static int[] shell_sort(int x[])
     {
@@ -383,8 +356,7 @@ public class All_Sort {
         System.out.println("7. Counting Sort-> O(n+k)");
         System.out.println("8. Bucket Sort-> O(n+k)");
         System.out.println("9. Shell Sort-> O(n^2)");
-        System.out.println("10. Tim Sort-> O(n*log(n))");
-        System.out.println("11. Pigeonhole Sort-> O(N+n)");
+        System.out.println("10. Pigeonhole Sort-> O(N+n)");
         System.out.println();
 
         int ch = sc.nextInt();
@@ -522,20 +494,8 @@ public class All_Sort {
                     System.out.println(b[i]);
                 }
                 break;
-            case 10:
-                System.out.println();
-                System.out.println("--------------------------------");
-                start = System.nanoTime();
-                b = tim_sort(a);
-                finish = System.nanoTime();
-                System.out.println("Tim Sort applied...!");
-                System.out.println();
-                for (int i = 0; i < b.length; i++) {
-                    System.out.println(b[i]);
-                }
-                break;
 
-            case 11:
+            case 10:
                 System.out.println();
                 System.out.println("--------------------------------");
                 start = System.nanoTime();
