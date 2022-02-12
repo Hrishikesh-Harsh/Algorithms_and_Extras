@@ -10,3 +10,5 @@
 - Radix Sort-> O(d*n)
 - Counting Sort-> O(n+k)
 - Bucket Sort-> O(n+k)
+- Shell Sort-> O(n^2)
+- Pigeonhole Sort-> O(N+n)
